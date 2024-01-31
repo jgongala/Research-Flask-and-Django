@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+{%block title%}Create Post{%endblock%}
+{%block content%}
+<div class="container">
+    <h1 class="my-4 text-center fw-light">Create a post</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <textarea name="text" id="text" class="form-control"></textarea>
+        </div>
+        <!-- Username Input Field -->
+        <div class="mb-3">
+            <label for="username" class="form-label">Title</label>
+            <input type="text" class="form-control" name="username" id="username">
+        </div>
+        <!-- Register Button -->
+        <button type="submit" class="btn btn-outline-secondary w-100">Post</button>
+    </form>
+</div>
+{%endblock%}
