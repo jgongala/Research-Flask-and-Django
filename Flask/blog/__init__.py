@@ -30,7 +30,7 @@ def create_app():
     from .auth import auth
     app.register_blueprint(auth, url_prefix="/")
     
-    from .models import User
+    from .models import User, Post
     
     # Create the database if it doesn't exist
     create_database(app)

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Edit Post{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="my-4 text-center fw-light">Edit post</h1>
+    <form method="POST" action="{{ url_for('views.edit_post', post_id=post.id) }}">
+        <!-- Post Input Fields with Existing Data -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" name="title" id="title" value="{{ post.title }}">
+        </div>
+        <div class="mb-3">
+            <label for="text" class="form-label">Text</label>
+            <textarea name="text" id="text" class="form-control" rows="15">{{ post.text }}</textarea>
+        </div>
+
+        <!-- Update Button -->
+        <button type="submit" class="btn btn-outline-secondary w-100">Update Post</button>
+    </form>
+</div>
+{% endblock %}

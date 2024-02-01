@@ -3,16 +3,17 @@
 {%block content%}
 <div class="container">
     <h1 class="my-4 text-center fw-light">Create a post</h1>
-    <form method="POST">
+    <form method="POST" action="{{ url_for('views.createPost') }}">
+        <!-- Post Input Field -->
         <div class="mb-3">
-            <textarea name="text" id="text" class="form-control"></textarea>
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" name="title" id="title">
         </div>
-        <!-- Username Input Field -->
         <div class="mb-3">
-            <label for="username" class="form-label">Title</label>
-            <input type="text" class="form-control" name="username" id="username">
+            <textarea name="text" id="text" class="form-control" rows="15"></textarea>
         </div>
-        <!-- Register Button -->
+
+        <!-- Post Button -->
         <button type="submit" class="btn btn-outline-secondary w-100">Post</button>
     </form>
 </div>
