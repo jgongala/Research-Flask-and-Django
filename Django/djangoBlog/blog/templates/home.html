@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <div class="container">
+    {% if user.is_authenticated %}
+      <!-- Welcome message with the user's name -->
+      <h1 class="my-4 text-center fw-light">Welcome, {{ username }}!</h1>
+    {% else %}
+      <!-- Alert message prompting user to log in -->
+      <div class="alert alert-warning text-center" role="alert">
+        You need to <a href="{% url 'login' %}">log in</a> to access this content.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

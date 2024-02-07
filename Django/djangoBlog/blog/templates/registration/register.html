@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+    <!-- Registration Form Section -->
+    <div class="container">
+        <h1 class="my-4 text-center fw-light">Sign Up</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {% if messages %}
+                <div class="alert" role="alert">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+                    
+            <!-- Username Input Field -->
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" id="username">
+            </div>
+            <!-- Email Input Field -->
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" name="email" id="email">
+            </div>
+            <!-- Password Input Field -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password">
+            </div>
+            <!-- Confirm Password Input Field -->
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" name="confirmPassword" id="confirmPassword">
+            </div>
+            <!-- Register Button -->
+            <button type="submit" class="btn btn-outline-secondary w-100">Register</button>
+            <!-- Link to Login Page -->
+            <div class="mb-5">
+                <a href="login" class="text-sm text-primary hover:underline">Already have an account? Sign in here!</a>
+            </div>
+        </form>
+    </div>
+    <!-- End of Registration Form Section -->
+{% endblock %}
