@@ -4,37 +4,19 @@
     Login
 {% endblock %}
 
+{% load crispy_forms_tags %}
 {% block content %}
     <!-- Login Form Section -->
     <div class="container">
         <h1 class="my-4 text-center fw-light">Login</h1>
         <form method="POST">
             {% csrf_token %}
+            {{ form | crispy }}  
 
-            {% if messages %}
-                <!-- Display error messages -->
-                <div class="alert alert-danger" role="alert">
-                    {% for message in messages %}
-                        {{ message }}
-                    {% endfor %}
-                </div>
-            {% endif %}
-
-            <!-- Email Input Field -->
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="username" class="form-control" name="username" id="username">
-            </div>
-            <!-- Password Input Field -->
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" id="password">
-            </div>
-            <!-- Login Button -->
             <button type="submit" class="btn btn-outline-secondary w-100">Login</button>
             <!-- Link to Registration Page -->
             <div class="mb-5">
-                <a href="register" class="text-sm text-primary hover:underline">No account? Sign up here!</a>
+                <a href="/register" class="text-sm text-primary hover:underline">No account? Sign up here!</a>
             </div>
         </form>
     </div>
