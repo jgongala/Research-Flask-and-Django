@@ -1,66 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <!-- Meta tags for character set, compatibility, title, and description -->
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <!-- Title block to be filled by child templates -->
-   <title>{% block title %}Home{% endblock %}</title>
-   <meta name="description" content="">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   
-   <!-- Bootstrap CSS stylesheet from CDN -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-   
-   <!-- Custom styles -->
-   <style>
-       /* Styling for hover effect on secondary outline buttons */
-       .btn-outline-secondary:hover {
-           background-color: #C3A6A0;
-           border-color: #C3A6A0;
-           color: #f7f1f0;
-       }
-   </style>
-</head>
-<body class="mx-auto mt-10 max-w-screen-lg bg-light text-dark p-6" style="max-width: 55%;">
+  <head>
+    <!-- Meta tags for character set, compatibility, title, and description -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Title block to be filled by child templates -->
+    <title>{% block title %}Home{% endblock %}</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS stylesheet from CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom styles -->
+    <style>
+      /* Styling for hover effect on secondary outline buttons */
+      .btn-outline-secondary:hover {
+        background-color: #c3a6a0;
+        border-color: #c3a6a0;
+        color: #f7f1f0;
+      }
+    </style>
+  </head>
+  <body
+    class="mx-auto mt-10 max-w-screen-lg bg-light text-dark p-6"
+    style="max-width: 55%"
+  >
     <!-- Navigation bar -->
     <nav class="mb-8 navbar navbar-expand-lg navbar-light bg-light">
-        <!-- Home link -->
-        <a class="navbar-brand" href="{% url 'home' %}">Home</a>
-        
-        {% if user.is_authenticated %}
-            <!-- Show these links when the user is logged in -->
-            <div class="collapse navbar-collapse justify-content-end">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/create-post">Create Post</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="0/logout">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        {% else %}
-            <!-- Show these links when the user is not logged in -->
-            <div class="collapse navbar-collapse justify-content-end">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/accounts/login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                </ul>
-            </div>
-        {% endif %}
+      <!-- Home link -->
+      <a class="navbar-brand" href="{% url 'home' %}">Home</a>
 
+      {% if user.is_authenticated %}
+      <!-- Show these links when the user is logged in -->
+      <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/createPost">Create Post</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+      {% else %}
+      <!-- Show these links when the user is not logged in -->
+      <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
     </nav>
 
+    <div class="container">
+      {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
 
     <!-- Main content container -->
     <div class="container">{% block content %}{% endblock %}</div>
 
+
+
     <!-- Bootstrap JavaScript bundle from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

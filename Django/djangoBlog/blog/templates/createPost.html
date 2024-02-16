@@ -1,0 +1,18 @@
+{% extends "base.html" %} 
+{% block title %} Create Post {% endblock %} 
+
+{% load crispy_forms_tags %} 
+{% block content %}
+<!-- Login Form Section -->
+<div class="container">
+  <h1 class="my-4 text-center fw-light">Create Post</h1>
+  <form method="POST">
+    
+    {% csrf_token %} 
+    {{ form|crispy }}
+
+    <button type="submit" class="btn btn-outline-secondary w-100">Post</button>
+  </form>
+</div>
+<!-- End of Login Form Section -->
+{% endblock %}
