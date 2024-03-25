@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- Sets the title of this page using the tag of the post -->
+{% block title %} {{ post.tag }} {% endblock %} 
+
+<!-- Begins the content block -->
+{% block content %} 
+
+<div class="card mb-3 mt-5">
+
+    <!-- Card header with post title, author, and date -->
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <div>
+
+        <!-- Display the title of the post -->
+        <h3 class="fw-light">{{ post.title }}</h3> 
+
+        <!-- Display the category of the post with a link to filter posts by category -->
+        <a class="card-title" style="text-decoration: none;" href="{% url 'categoryFilter' post.category|slugify %}"> 
+          <p class="card-text fw-light mb-0 fs-10">
+              #{{ post.category }} 
+          </p>
+        </a>
+
+      </div>
+
+      <div class="text-end">
+
+        <!-- Display the author's name -->
+        <p class="card-text fw-light text-decoration-none text-black fs-5">
+          Author: {{ post.author.first_name }} {{ post.author.last_name }} 
+          {% if post.author.userprofile.profileImage and post.author.userprofile.profileImage.url %}
+            <img src="{{ post.author.userprofile.profileImage.url }}" class="profile-image" alt="Profile Image">
+          {% endif %}
+        </p>
+
+        <!-- Display the date when the post was created -->
+        <p class="card-text fw-light mb-0 fs-10">
+          {{ post.date_created|date:'Y-m-d' }} 
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- Card body with post text -->
+    <div class="card-body">
+      <!-- Display the description of the post -->
+      {% if post.image %}
+        <div class="text-center">
+          <img src="{{ post.image.url }}" class="img-fluid" alt="Post Image">
+        </div>
+      {% endif %}
+
+      <p class="card-text" align="justify">{{ post.description | safe}}</p> 
+
+      {% if request.user.is_authenticated %}
+
+        <!-- Form to handle post liking if the user is authenticated -->
+        <form action="{% url 'likedPost' post.pk %}" method="POST">
+          {% csrf_token %}
+          <button class="btn btn-outline-secondary btn-sm heart-btn" name="post_id", value="{{post.id}}">
+            <i class="fa-solid fa-thumbs-up"></i> 
+          </button>
+          <!-- Display the total likes for the post -->
+          {{totalLikes}} 
+        </form>
+
+      {% else %}
+
+        <!-- Display the number of likes for the post if the user is not authenticated -->
+        <i class="fa-solid fa-thumbs-up" style="color: #c3a6a0;"></i>
+        {{post.like.count}}
+
+      {% endif %}
+
+      {% if request.user.is_authenticated and post.author == request.user %}
+
+        <div class="mt-3 d-flex">
+
+          <!-- Edit button -->
+          <a href="{% url 'editPost' post.pk %}">
+            <button class="btn btn-outline-secondary btn-sm edit-btn" type="submit">
+              Edit
+            </button>
+          </a>
+
+          <!-- Delete button -->
+          <form method="POST" action="{% url 'deletePost' post.id %}" class="mr-2">
+            {% csrf_token %}
+            <button class="btn btn-outline-secondary btn-sm" type="submit">
+              Delete
+            </button>
+          </form>
+
+        </div>
+
+      {% endif %}
+
+    </div>
+
+</div>
+
+<div class="card mb-3 mt-2">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="mt-3">
+      <h3 class="fw-light">Comments</h3> 
+      {% for comment in post.comments.all %}
+      <div class="mb-3">
+          <h7>{{ comment.name }} - {{ comment.date_created|date:"F d, Y" }} </h7>
+          <p>{{ comment.comment }}</p>
+      </div>
+      {% empty %}
+        <p>No comments yet.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+
+</div>
+{% if request.user.is_authenticated %}
+<a href="{% url 'addComment' post.pk %}" class="btn btn-outline-secondary btn-sm w-100">Add Comment</a>
+{% endif %}
+<!-- End of the content block -->
+{% endblock %} 
+
+

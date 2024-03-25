@@ -1,0 +1,27 @@
+{% extends "base.html" %} 
+
+{% block title %} Create Post {% endblock %} 
+
+{% block content %} 
+
+<div class="container"> 
+  <h1 class="my-3 text-center fw-light">Create Post</h1> 
+
+  <div class="form-group"> 
+    <!-- Form opening tag with POST method -->
+    <form method="POST" enctype="multipart/form-data"> 
+
+      <!-- CSRF token for security -->
+      {% csrf_token %} 
+      <!-- Renders the form fields as paragraphs -->
+      {{ form.media }}
+      {{ form.as_p }}
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-outline-secondary w-100">Post</button> 
+      
+    </form>
+  </div>
+
+</div>
+
+{% endblock %} 

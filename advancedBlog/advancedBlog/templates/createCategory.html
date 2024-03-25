@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Create Category {% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h1 class="my-3 text-center fw-light">Create Category</h1>
+
+  <div class="form-group"> 
+    <!-- Opening form tag with POST method -->
+    <form method="POST"> 
+    
+      <!-- CSRF token for security -->
+      {% csrf_token %} 
+      <!-- Renders the form fields as <p> elements -->
+      {{ form.as_p }}
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-outline-secondary w-100">Submit</button> 
+    </form>
+  </div>
+
+</div>
+
+{% endblock %}
